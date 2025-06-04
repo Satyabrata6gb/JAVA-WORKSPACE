@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class ReverseNodeInKGrp {
+public class ReverseLL {
     static class ListNode {
         int val;
         ListNode next;
@@ -22,31 +22,32 @@ public class ReverseNodeInKGrp {
         }
     }
 
-    public static ListNode reverseKGroup(ListNode head, int k) {
-        int count = 0;
-        ListNode temp = head;
+    public static ListNode rotateRight(ListNode head, int k) {
+        if(head == null || head.next == null) return head;
 
-        while(temp != null && count < k){
-            count++;
-            temp = temp.next;
+        ListNode newH , tail;
+
+        newH = tail = head;
+
+        int len = 1;
+
+        while(tail.next != null){
+            len++;
+            tail = tail.next;
         }
 
-        if(count == k){
+        k = k % len;
 
-            temp = reverseKGroup(temp, k);
+        tail.next = head;
 
-            while(count > 0){
-                ListNode next = head.next;
-                head.next = temp;
-                temp = head;
-                head = next;
-                count--;
-            }
-
-            head = temp;
+        for(int i = 0 ; i < len - k ; i++){
+            tail = tail.next;
         }
 
-        return head;
+        newH = tail.next;
+        tail.next = null;
+
+        return newH;
     }
 
     public static void printList(ListNode node){
@@ -99,7 +100,7 @@ public class ReverseNodeInKGrp {
 
             ListNode headA = constructLL(a);
 
-            printList(reverseKGroup(headA, k));
+            printList(rotateRight(headA, k));
 
         } catch (Exception e) {
             e.printStackTrace();
