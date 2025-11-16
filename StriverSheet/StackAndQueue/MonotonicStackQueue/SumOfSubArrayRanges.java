@@ -1,4 +1,4 @@
-package StriverSheet.StackAndQueue;
+package StriverSheet.StackAndQueue.MonotonicStackQueue;
 
 import java.io.*;
 import java.util.*;
